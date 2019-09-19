@@ -1,80 +1,50 @@
-import random
-
-
 class Environment(object):
     def __init__(self, a, b):
-        self.locationCondition = {'A': a, 'B': b}
+        self.dirtlocation = {'A': a, 'B': b}
 
 
-class SimpleReflexVacuumAgent(Environment):
+class VacuumAgent:
     performanceMeasure = 0
 
     def __init__(self, environment, location):
-        print(environment.locationCondition)
+        print("--------------")
+        print("Start environment: " + str(environment.dirtlocation))
         score = 0
-        vacuumLocation = location
-        if vacuumLocation == 0:
-            print("Vacuum is placed at Location A.")
-            if environment.locationCondition['A'] == 1:
-                print("Location A is Dirty.")
-                environment.locationCondition['A'] = 0;
+        vacuumlocation = location
+        print("Vacuum starting on A" if vacuumlocation == 0 else "Vacuum starting on B")
+        if vacuumlocation == 0:
+            if environment.dirtlocation['A'] == 1:
                 score += 1
-                print("Location A has been Cleaned.")
-                print("Moving to Location B...")
                 score -= 1
-                if environment.locationCondition['B'] == 1:
-                    print("Location B is Dirty.")
-                    environment.locationCondition['B'] = 0;
+                if environment.dirtlocation['B'] == 1:
                     score += 1
-                    print("Location B has been Cleaned.")
             else:
                 score -= 1
-                print("Moving to Location B...")
-                if environment.locationCondition['B'] == 1:
-                    print("Location B is Dirty.")
-                    environment.locationCondition['B'] = 0;
+                if environment.dirtlocation['B'] == 1:
                     score += 1
-                    print("Location B has been Cleaned.")
-        elif vacuumLocation == 1:
-            print("Vacuum placed at Location B.")
-            if environment.locationCondition['B'] == 1:
-                print("Location B is Dirty.")
-                environment.locationCondition['B'] = 0;
+        elif vacuumlocation == 1:
+            if environment.dirtlocation['B'] == 1:
                 score += 1
-                print("Location B has been Cleaned.")
                 score -= 1
-                print("Moving to Location A...")
-                if environment.locationCondition['A'] == 1:
-                    print("Location A is Dirty.")
-                    environment.locationCondition['A'] = 0;
+                if environment.dirtlocation['A'] == 1:
                     score += 1
-                    print("Location A has been Cleaned.")
             else:
-                print("Moving to Location A...")
                 score -= 1
-                if environment.locationCondition['A'] == 1:
-                    print("Location A is Dirty.")
-                    environment.locationCondition['A'] = 0;
+                if environment.dirtlocation['A'] == 1:
                     score += 1
-                    print("Location A has been Cleaned.")
-        print(environment.locationCondition)
         print("Performance Measurement: " + str(score))
-        SimpleReflexVacuumAgent.performanceMeasure += score
+        VacuumAgent.performanceMeasure += score
 
 
-SimpleReflexVacuumAgent(Environment(0, 0), 0)
-SimpleReflexVacuumAgent(Environment(0, 0), 1)
-
-SimpleReflexVacuumAgent(Environment(1, 1), 0)
-SimpleReflexVacuumAgent(Environment(1, 1), 1)
-
-SimpleReflexVacuumAgent(Environment(1, 0), 0)
-SimpleReflexVacuumAgent(Environment(1, 0), 1)
-
-SimpleReflexVacuumAgent(Environment(0, 1), 0)
-SimpleReflexVacuumAgent(Environment(0, 1), 1)
-
-print("Average Performance measure:")
+VacuumAgent(Environment(0, 0), 0)
+VacuumAgent(Environment(0, 0), 1)
+VacuumAgent(Environment(1, 1), 0)
+VacuumAgent(Environment(1, 1), 1)
+VacuumAgent(Environment(1, 0), 0)
+VacuumAgent(Environment(1, 0), 1)
+VacuumAgent(Environment(0, 1), 0)
+VacuumAgent(Environment(0, 1), 1)
 print("--------------")
-print(SimpleReflexVacuumAgent.performanceMeasure/8)
+print("Average Performance measure:")
+print(VacuumAgent.performanceMeasure / 8)
 print("--------------")
